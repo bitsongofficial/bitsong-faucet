@@ -1,5 +1,5 @@
 <p align="center">
-⭐ bitsong-faucet is a simple alternative to the tendermint/faucet script. This is an idea adapted for ➡️ <a href="https://bitsong.io/">BitSibg</a> and can be used for any project using bitsongjs.  
+⭐ bitsong-faucet is a simple alternative to the tendermint/faucet script. This is an idea adapted for ➡️ <a href="https://bitsong.io/">BitSong</a> and can be used for any project using bitsongjs.  
 </p>
 
 
