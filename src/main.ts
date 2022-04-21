@@ -3,6 +3,7 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -10,6 +11,16 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
   );
+
+  const config = new DocumentBuilder()
+    .setTitle('Bitsong Faucet API')
+    .setDescription('Bitsong Faucet API')
+    .setVersion(process.env.npm_package_version)
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(process.env.NODE_PORT);
 }
