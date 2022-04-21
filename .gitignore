@@ -2,6 +2,9 @@
 /dist
 /node_modules
 
+# python benchmark env
+benchmark/env/*
+
 # Logs
 logs
 *.log

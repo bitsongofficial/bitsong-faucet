@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Queue } from 'bull';
 import { InjectQueue } from '@nestjs/bull';
 import { FaucetDto } from 'src/dto/faucet.dto';
@@ -6,6 +6,8 @@ import { TooManyRequestsException } from 'src/exceptions';
 
 @Injectable()
 export class AppService {
+  private readonly logger = new Logger(AppService.name);
+
   constructor(@InjectQueue('faucet') private faucetQueue: Queue<FaucetDto>) {}
 
   async appendToQueue(address: string) {
@@ -19,6 +21,8 @@ export class AppService {
 
       return { status: 'in-queue' };
     }
+
+    this.logger.error('Too Many Requests: ', address);
 
     throw new TooManyRequestsException();
   }

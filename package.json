@@ -21,6 +21,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
+  "engines": {
+    "node": ">=16.14.0"
+  },
   "dependencies": {
     "@bitsongjs/sdk": "^1.0.0-dev-14",
     "@cosmjs/crypto": "^0.28.4",
@@ -34,6 +37,7 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/platform-fastify": "^8.4.4",
     "@nestjs/swagger": "^5.2.1",
+    "@nestjs/throttler": "^2.0.1",
     "bull": "^4.8.2",
     "fastify-swagger": "^5.1.1",
     "reflect-metadata": "^0.1.13",

@@ -4,11 +4,16 @@ import { BullModule } from '@nestjs/bull';
 import { FaucetProcessor } from 'src/processors/faucet.processor';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    ThrottlerModule.forRoot({
+      ttl: parseInt(process.env.THROTTLER_TTL),
+      limit: parseInt(process.env.THROTTLER_LIMIT),
     }),
     BullModule.forRoot({
       limiter: {
