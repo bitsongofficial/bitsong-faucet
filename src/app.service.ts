@@ -1,36 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { DirectSecp256k1HdWallet } from '@cosmjs/proto-signing';
-import { stringToPath } from '@cosmjs/crypto';
-import { assertIsDeliverTxSuccess } from '@cosmjs/stargate';
-import { Constants, SigningBitsongClient } from '@bitsongjs/sdk';
-import { faucetAmount, defaultFee } from 'src/constants';
+import { Queue } from 'bull';
+import { InjectQueue } from '@nestjs/bull';
+import { FaucetDto } from 'src/dto/faucet.dto';
+import { TooManyRequestsException } from 'src/exceptions';
 
 @Injectable()
 export class AppService {
-  async sendCoins(recipientAddress: string) {
-    const faucetWallet = await DirectSecp256k1HdWallet.fromMnemonic(
-      process.env.FAUCET_MNEMONIC,
-      {
-        prefix: Constants.Bech32PrefixAccAddr,
-        hdPaths: [stringToPath(Constants.getHdPath())],
-      },
-    );
+  constructor(@InjectQueue('faucet') private faucetQueue: Queue<FaucetDto>) {}
 
-    const bitsong = await SigningBitsongClient.connectWithSigner(
-      process.env.RPC_URL,
-      faucetWallet,
-    );
+  async appendToQueue(address: string) {
+    const jobs = await this.faucetQueue.getJobs(['waiting', 'active']);
+    const addressJob = jobs.find((job) => job.data.address === address);
 
-    const result = await bitsong.sendTokens(
-      process.env.FAUCET_ADDRESS,
-      recipientAddress,
-      [faucetAmount],
-      defaultFee,
-      'Have fun!',
-    );
+    if (!addressJob) {
+      await this.faucetQueue.add({
+        address,
+      });
 
-    assertIsDeliverTxSuccess(result);
+      return { status: 'in-queue' };
+    }
 
-    return { status: 'ok' };
+    throw new TooManyRequestsException();
+  }
+
+  async getJobs() {
+    return await this.faucetQueue.getJobs([]);
+  }
+
+  async getJobCounts() {
+    return await this.faucetQueue.getJobCounts();
   }
 }

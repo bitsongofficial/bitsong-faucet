@@ -11,6 +11,16 @@ export class AppController {
 
   @Get()
   getFaucet(@Query(AddressValidationPipe) query: FaucetDto) {
-    return this.appService.sendCoins(query.address);
+    return this.appService.appendToQueue(query.address);
+  }
+
+  @Get('queue')
+  getJobs() {
+    return this.appService.getJobs();
+  }
+
+  @Get('queue-counts')
+  getJobCounts() {
+    return this.appService.getJobCounts();
   }
 }
