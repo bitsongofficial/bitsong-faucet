@@ -1,73 +1,145 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# 🌌Bitsong Faucet
+This application enables the users to receiver coins on the Bitsong Testnet. It can be called  through simple HTTP GET requests,
+whose  single query parameter is the address of the wallet who wants to receive the coins.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+It is empowered by an anti-bruteforce attack system and a jobs queue built on Redis.
 
-## Description
+It is also possible to see a documentation for the available APIs at ```/api```.
+## 🚀 Tech Stack
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+**Server:** NestJS, Node.js, Redis and Swagger
 
-## Installation
+**Benchmark:** Python
+## 🌎 Environment Variables
+
+To run this project you need to create a ```.env``` file and add the following environment variables:
+
+`FAUCET_MNEMONIC`
+Faucet mnemonic used for transaction signing
+
+`FAUCET_ADDRESS`
+Faucet address used for transaction
+
+`ADDRESS_PREFIX`
+Address prefix used for receiver address validation
+
+`RPC_URL`
+Link to Bitsong RPC API
+
+`NODE_PORT`
+Node port used by server instance
+
+`QUEUE_MAX_JOBS`
+The maximum number of items in the queue
+
+`QUEUE_DURATION`
+The maximum duration of a queued job
+
+`THROTTLER_TTL`
+The maximum duration of each throttle
+
+`THROTTLER_LIMIT`
+The number of times an endpoint can be called from the same ip address in a TTL
+
+`REDIS_HOST`
+Redis server hostname
+
+`REDIS_PORT`
+Redis server port
+## ⚙️ Run Locally
+
+Clone the project
 
 ```bash
-$ npm install
+  git clone https://github.com/bitsongofficial/bitsong-faucet.git
 ```
 
-## Running the app
+Go to the project directory
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+  cd bitsong-faucet
 ```
 
-## Test
+Install dependencies
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+  pnpm i
 ```
 
-## Support
+Or you can use:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+  npm i
+```
 
-## Stay in touch
+Start docker container (Redis):
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+  docker compose up -d
+```
 
-## License
+Start the server on dev mode:
 
-Nest is [MIT licensed](LICENSE).
+```bash
+  pnpm start:dev
+```
+
+Start the server on debug mode:
+
+```bash
+  pnpm start:debug
+```
+
+Start the server on prod mode:
+
+```bash
+  pnpm start:prod
+```
+
+Moreover if you want to start docker service and Node.js server on debug mode, you can use:
+
+```bash
+  start:debug-docker
+```
+
+Build the server for production:
+```bash
+  pnpm build
+```
+## 💥 Benchmark
+
+Create a virtual enviroment on python:
+
+```bash
+  python3 -m venv benchmark/env
+```
+
+Active the virtual enviroment:
+
+```bash
+  source benchmark/env/bin/activate
+```
+Install dependencies:
+
+```bash
+  pip3 install -r benchmark/requirements.txt
+```
+Run the benchmark:
+
+```bash
+  python3 benchmark/main.py
+```
+## 👤 Authors
+- `Angelo Recca` [@angelorc](https://github.com/angelorc)
+
+- `Giorgio Nocera` [@Giorgionocera](https://github.com/Giorgionocera)
+
+- `Davide Segullo` [@DavideSegullo](https://github.com/DavideSegullo)
+## 🆘 Support
+
+For support, email g.nocera@bitsong.io or join our [Discord](https://discord.gg/5VT5fJmF).
+## 🔏 License
+Copyright © 2022 [BitSong](https://github.com/bitsongofficial).
+
+This project is licensed by [MIT License](https://api.github.com/licenses/mit).

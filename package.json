@@ -1,8 +1,8 @@
 {
   "name": "bitsong-faucet",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
+  "description": "Bitsong Faucet",
+  "author": "Davide Segullo",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
