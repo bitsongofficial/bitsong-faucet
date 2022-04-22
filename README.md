@@ -13,7 +13,13 @@ It is also possible to see a documentation for the available APIs at ```/api```.
 **Benchmark:** Python
 ## 🌎 Environment Variables
 
-To run this project you need to create a ```.env``` file and add the following environment variables:
+To run this project you need to create a ```.env``` file. You can copy the example file by typing:
+
+```
+cp .env.example .env
+```
+
+Then, you should edit the variables. Their explaination follows:
 
 `FAUCET_MNEMONIC`
 Faucet mnemonic used for transaction signing
