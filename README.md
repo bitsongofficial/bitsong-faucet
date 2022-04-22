@@ -76,7 +76,7 @@ Or you can use:
 Start docker container (Redis):
 
 ```bash
-  docker compose up -d
+  docker-compose up -d
 ```
 
 Start the server on dev mode:
