@@ -3,14 +3,15 @@ import { ApiTags } from '@nestjs/swagger';
 import { AddressValidationPipe } from 'src/pipes/address-validation.pipe';
 import { FaucetDto } from 'src/dto/faucet.dto';
 import { AppService } from './app.service';
-import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
+import { Throttle } from '@nestjs/throttler';
+import { ThrottlerBehindProxyGuard } from './guards/throttler-behind-proxy.guard';
 
 @ApiTags('Faucet')
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @UseGuards(ThrottlerGuard)
+  @UseGuards(ThrottlerBehindProxyGuard)
   @Throttle(
     parseInt(process.env.THROTTLER_TTL),
     parseInt(process.env.THROTTLER_LIMIT),
