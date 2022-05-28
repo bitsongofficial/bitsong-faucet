@@ -31,6 +31,9 @@ export class FaucetProcessor {
       },
     );
 
+    const [account] = await faucetWallet.getAccounts()
+    this.logger.debug('Start sending from: ', account.address);
+
     const bitsong = await SigningBitsongClient.connectWithSigner(
       process.env.RPC_URL,
       faucetWallet,
