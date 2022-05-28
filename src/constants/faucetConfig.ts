@@ -12,9 +12,6 @@ export const faucetAmount = [{
 },{
   denom: "uyen",
   amount: '10000000',
-},{
-  denom: "ugbp",
-  amount: '10000000',
 }];
 
 export const defaultFee = {
