@@ -7,7 +7,7 @@ export const faucetAmount = [{
   denom: "ueur",
   amount: '10000000',
 },{
-  denom: "uchf",
+  denom: "uusd",
   amount: '10000000',
 }];
 
