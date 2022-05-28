@@ -26,7 +26,7 @@ export class FaucetProcessor {
     const faucetWallet = await DirectSecp256k1HdWallet.fromMnemonic(
       process.env.FAUCET_MNEMONIC,
       {
-        prefix: Constants.Bech32PrefixAccAddr,
+        prefix: "bkn",
         hdPaths: [stringToPath(Constants.getHdPath())],
       },
     );
