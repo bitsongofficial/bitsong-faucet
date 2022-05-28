@@ -39,7 +39,7 @@ export class FaucetProcessor {
     const result = await bitsong.sendTokens(
       process.env.FAUCET_ADDRESS,
       job.data.address,
-      [faucetAmount],
+      faucetAmount,
       defaultFee,
       'Have fun!',
     );
